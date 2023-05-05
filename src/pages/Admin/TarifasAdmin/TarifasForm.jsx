@@ -7,7 +7,7 @@ import usuarioBD from '../../../apis/usuarios';
 
 const TarifasForm = ({
     modal, image, toggle, handleSubmit, watch,
-    setImgData, imgData,
+    setImgData, imgData,setArchivo,
     submit, register, reset
 }) => {
     const [options, setOptions] = useState()
@@ -64,7 +64,10 @@ const TarifasForm = ({
                             id='img'
                             // onChange={() => subirArchivo(e.target.files)}
                             {...register('img')}
-                            onChange={handleFileChange}
+                            // onChange={handleFileChange}
+                            onChange={(e) => {
+                                setArchivo(e.target.files[0]);
+                            }}
                         />
                         {/* {watchImg && <img id='preview-img' src={`https://backend.peruexploring.pe/storage/tours/${image}`} alt='preview' style={{ width: '200px', margin: '10px' }} />} */}
                     </div>

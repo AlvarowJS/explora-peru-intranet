@@ -64,7 +64,7 @@ const NoticiaForm = ({
                             // onChange={() => subirArchivo(e.target.files)}
                             {...register('img')}
                             onChange={handleFileChange}
-                            required
+                            // required
 
                         />
                         {watchImg && <img id='preview-img' src={`https://backend.peruexploring.pe/storage/noticias/${image}`} alt='preview' style={{ width: '200px', margin: '10px' }} />}

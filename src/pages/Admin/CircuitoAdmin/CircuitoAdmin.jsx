@@ -5,6 +5,7 @@ import axios from 'axios'
 import circuitoBD from '../../../apis/circuitos'
 const URL = 'https://backend.peruexploring.pe/api/v1/circuitos'
 const URLDIAS = 'https://backend.peruexploring.pe/api/v1/dias'
+const URLUPDATE = 'http://127.0.0.1:8000/api/v1/circuitos-img'
 import { useForm } from 'react-hook-form'
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
@@ -26,12 +27,14 @@ const CircuitoAdmin = () => {
     const [archivoSpanish, setArchivoSpanish] = useState()
     const [prueba, setPrueba] = useState(null)
     const [idCirc, setIdCirc] = useState()
+    const [isUpdate, setIsUpdate] = useState(false)
 
     const { handleSubmit, register, reset, watch } = useForm()
     const [objUpdate, setObjUpdate] = useState()
     const [objUpdateDia, setObjUpdateDia] = useState()
 
     const toggle = () => {
+        setIsUpdate(false)
         setModal(!modal)
         if (objUpdate !== undefined) {
             reset(defaultValuesForm)
@@ -88,6 +91,7 @@ const CircuitoAdmin = () => {
     const updateCircuito = (id, data) => {
         // console.log(prueba, 'check1')
         const formData = new FormData();
+        formData.append('id', data.id);
         formData.append('img', imgData);
         formData.append('archivo_english', archivoEnglish);
         formData.append('archivo_spanish', archivoSpanish);
@@ -98,8 +102,9 @@ const CircuitoAdmin = () => {
         formData.append('no_incluye_spanish', data.no_incluye_spanish);
         formData.append('duracion', data.duracion);
 
-        axios.patch(`${URL}/${id}`, formData)
+        axios.post(`${URLUPDATE}`, formData)
             .then(res => {
+                setEstado(true)
             })
             .catch(err => console.log(err))
     }
@@ -107,6 +112,7 @@ const CircuitoAdmin = () => {
     const updateCircuitoById = (id) => {
 
         toggle.call()
+        setIsUpdate(true)
         circuitosBD.get(`/${id}`)
             .then(res => {
                 setObjUpdate(res?.data)
@@ -118,13 +124,14 @@ const CircuitoAdmin = () => {
     }
 
     const submit = data => {
-        if (objUpdate !== undefined) {
-
+        // if (objUpdate !== undefined) {
+        if (isUpdate) {
             updateCircuito(objUpdate?.id, data)
             reset(defaultValuesForm)
             toggle.call()
 
         } else {
+            setIsUpdate(false)
             reset(defaultValuesForm)
             createCircuito(data)
             toggle.call()

@@ -4,6 +4,7 @@ import DataTable from 'react-data-table-component'
 import axios from 'axios'
 import toursBD from '../../../apis/tours'
 const URL = 'https://backend.peruexploring.pe/api/v1/tours'
+const URLUPDATE = 'https://backend.peruexploring.pe/api/v1/tours-img'
 
 import TourForm from './TourForm'
 import { useForm } from 'react-hook-form'
@@ -21,11 +22,13 @@ const TourAdmin = () => {
     const [prueba, setPrueba] = useState(null)
     const [archivoEnglish, setArchivoEnglish] = useState()
     const [archivoSpanish, setArchivoSpanish] = useState()
+    const [isUpdate, setIsUpdate] = useState(false)
 
     const { handleSubmit, register, reset, watch } = useForm()
     const [objUpdate, setObjUpdate] = useState()
 
     const toggle = () => {
+        setIsUpdate(false)
         setModal(!modal)
         if (objUpdate !== undefined) {
             reset(defaultValuesForm)
@@ -65,10 +68,13 @@ const TourAdmin = () => {
     }
     const defaultValuesForm = {
         titulo: '',
+        lugares: '',
         descripcion_spanish: '',
         descripcion_english: '',
         incluye_spanish: '',
         incluye_english: '',
+        no_incluye_english: '',
+        no_incluye_spanish: '',
         duracion: '',
         img: ''
     }
@@ -78,8 +84,9 @@ const TourAdmin = () => {
         formData.append('img', imgData);
         formData.append('archivo_english', archivoEnglish);
         formData.append('archivo_spanish', archivoSpanish);
+        formData.append('id', data.id);
         formData.append('titulo', data.titulo);
-        formData.append('lugares', data.titulo);
+        formData.append('lugares', data.lugares);
         formData.append('descripcion_spanish', data.descripcion_spanish);
         formData.append('descripcion_english', data.descripcion_english);
         formData.append('incluye_english', data.incluye_english);
@@ -88,9 +95,9 @@ const TourAdmin = () => {
         formData.append('no_incluye_spanish', data.no_incluye_spanish);
         formData.append('duracion', data.duracion);
 
-        axios.patch(`${URL}/${id}`, formData)
+        axios.post(`${URLUPDATE}`, formData)
             .then(res => {
-                console.log(res.data)
+                setEstado(true)
             })
             .catch(err => console.log(err))
     }
@@ -98,6 +105,7 @@ const TourAdmin = () => {
     const updateTourById = (id) => {
 
         toggle.call()
+        setIsUpdate(true)
         toursBD.get(`/${id}`)
             .then(res => {
                 setObjUpdate(res?.data)
@@ -109,13 +117,15 @@ const TourAdmin = () => {
     }
 
     const submit = data => {
-        if (objUpdate !== undefined) {
+        // if (objUpdate !== undefined) {
+        if (isUpdate) {
 
             updateTour(objUpdate?.id, data)
             reset(defaultValuesForm)
             toggle.call()
 
         } else {
+            setIsUpdate(false)
             reset(defaultValuesForm)
             createTour(data)
             toggle.call()

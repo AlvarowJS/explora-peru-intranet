@@ -20,11 +20,13 @@ const NoticiaAdmin = () => {
   const [image, setImage] = useState()
   const [imgData, setImgData] = useState()
   const [prueba, setPrueba] = useState(null)
+  const [isUpdate, setIsUpdate] = useState(false)
 
   const { handleSubmit, register, reset, watch } = useForm()
   const [objUpdate, setObjUpdate] = useState()
 
   const toggle = () => {
+    setIsUpdate(false)
     setModal(!modal)
     if (objUpdate !== undefined) {
       reset(defaultValuesForm)
@@ -57,7 +59,9 @@ const NoticiaAdmin = () => {
   const defaultValuesForm = {
     titulo: '',
     nota: '',
-    img: ''
+    img: '',
+    nota_ingles: '',
+    titulo_ingles: ''
   }
 
   const updateNoticia = (id, data) => {
@@ -66,23 +70,27 @@ const NoticiaAdmin = () => {
     // .then(res => {
     //   setEstado(true)
     // })
-    // .catch(err => console.log(err))
-    console.log(data)
+    // .catch(err => console.log(err))    
     const formData = new FormData();
+    formData.append('id', data.id);
     formData.append('img', imgData);
-    // formData.append('titulo', data.titulo);
-    // formData.append('nota', data.duracion);
-
-    // axios.patch(`${URLIMG}/${id}`, formData)
-    //   .then(res => {
-    //     setEstado(true)
-    //   })
-    //   .catch(err => console.log(err))
+    formData.append('titulo', data.titulo);
+    formData.append('nota', data.nota);
+    formData.append('titulo_ingles', data.titulo_ingles);
+    formData.append('nota_ingles', data.nota_ingles);
+    console.log(formData, "Adsasd")
+    axios.post(`${URLIMG}`, formData)
+      .then(res => {
+        setEstado(true)
+        // setObjUpdate(undefined)
+        
+      })
+      .catch(err => console.log(err))
   }
-
+  console.log(objUpdate)
   const updateNoticiaById = (id) => {
-
     toggle.call()
+    setIsUpdate(true)
     noticiasBD.get(`/${id}`)
       .then(res => {
         setObjUpdate(res?.data)
@@ -93,18 +101,21 @@ const NoticiaAdmin = () => {
   }
 
   const submit = data => {
-    if (objUpdate !== undefined) {
-
+    console.log(data, "data")
+    // if (objUpdate !== undefined) {
+      if (isUpdate) {
       updateNoticia(objUpdate?.id, data)
       reset(defaultValuesForm)
       toggle.call()
 
     } else {
+      setIsUpdate(false)
       reset(defaultValuesForm)
       createNoticia(data)
       toggle.call()
     }
   }
+  console.log(isUpdate, "?")
   const deleteTourById = (id) => {
     return MySwal.fire({
       title: '¿Estás seguro de eliminar?',

@@ -3,6 +3,8 @@ import './../style.css'
 import DataTable from 'react-data-table-component'
 import axios from 'axios'
 const URL = 'https://backend.peruexploring.pe/api/v1/promos'
+const URLUPDATE = 'https://backend.peruexploring.pe/api/v1/promos-img'
+
 
 import { useForm } from 'react-hook-form'
 import Swal from 'sweetalert2'
@@ -21,11 +23,13 @@ const PromocionAdmin = () => {
   const [archivoEnglish, setArchivoEnglish] = useState()
   const [archivoSpanish, setArchivoSpanish] = useState()
   const [prueba, setPrueba] = useState(null)
+  const [isUpdate, setIsUpdate] = useState(false)
 
   const { handleSubmit, register, reset, watch } = useForm()
   const [objUpdate, setObjUpdate] = useState()
 
   const toggle = () => {
+    setIsUpdate(false)
     setModal(!modal)
     if (objUpdate !== undefined) {
       reset(defaultValuesForm)
@@ -58,70 +62,79 @@ const PromocionAdmin = () => {
     axios.post(URL, formData)
       .then(res => {
         setEstado(true)
+        reset(defaultValuesForm)
       })
       .catch(err => console.log(err))
     // .finally(() => console.log(res.data))
   }
   const defaultValuesForm = {
     titulo: '',
+    lugares: '',
     descripcion_spanish: '',
     descripcion_english: '',
     incluye_spanish: '',
     incluye_english: '',
+    no_incluye_english: '',
+    no_incluye_spanish: '',
     duracion: '',
     img: ''
   }
 
   const updatePromo = (id, data) => {
-    // const formData = new FormData();
-    // formData.append('img', imgData);
-    // formData.append('archivo_english', archivoEnglish);
-    // formData.append('archivo_spanish', archivoSpanish);
-    // formData.append('titulo', data.titulo);
-    // formData.append('lugares', data.lugares);
-    // formData.append('descripcion_spanish', data.descripcion_spanish);
-    // formData.append('descripcion_english', data.descripcion_english);
-    // formData.append('incluye_english', data.incluye_english);
-    // formData.append('incluye_spanish', data.incluye_spanish);
-    // formData.append('no_incluye_english', data.no_incluye_english);
-    // formData.append('no_incluye_spanish', data.no_incluye_spanish);
-    // formData.append('duracion', data.duracion);
+    const formData = new FormData();
+    formData.append('img', imgData);
+    formData.append('archivo_english', archivoEnglish);
+    formData.append('archivo_spanish', archivoSpanish);
+    formData.append('id', data.id);
+    formData.append('titulo', data.titulo);
+    formData.append('lugares', data.lugares);
+    formData.append('descripcion_spanish', data.descripcion_spanish);
+    formData.append('descripcion_english', data.descripcion_english);
+    formData.append('incluye_english', data.incluye_english);
+    formData.append('incluye_spanish', data.incluye_spanish);
+    formData.append('no_incluye_english', data.no_incluye_english);
+    formData.append('no_incluye_spanish', data.no_incluye_spanish);
+    formData.append('duracion', data.duracion);
 
-    axios.patch(`${URL}/${id}`, data)
+    axios.post(`${URLUPDATE}`, formData)
       .then(res => {
         setEstado(true)
+        
       })
       .catch(err => console.log(err))
   }
 
   const updatePromoById = (id) => {
-
     toggle.call()
+    setIsUpdate(true)
     promosBD.get(`/${id}`)
       .then(res => {
         setObjUpdate(res?.data)
-        setEstado(true)
         const object = res?.data
         reset(object)
+        // setEstado(true)
       })
       .catch(err => console.log(err))
 
   }
 
   const submit = data => {
-    if (objUpdate !== undefined) {
-
+    // if (objUpdate !== undefined) {
+    if (isUpdate) {
       updatePromo(objUpdate?.id, data)
       reset(defaultValuesForm)
       toggle.call()
 
     } else {
-      reset(defaultValuesForm)
+      setIsUpdate(false)
       createPromo(data)
+      reset(defaultValuesForm)
+
       toggle.call()
     }
   }
 
+  
   const deleteTourById = (id) => {
     return MySwal.fire({
       title: '¿Estás seguro de eliminar?',
@@ -254,11 +267,9 @@ const PromocionAdmin = () => {
           watch={watch}
           image={image}
           setImgData={setImgData}
-          imgData={imgData}
           setArchivoEnglish={setArchivoEnglish}
           setArchivoSpanish={setArchivoSpanish}
-          archivoEnglish={archivoEnglish}
-          archivoSpanish={archivoSpanish}
+          
         />
       </div>
     </>

@@ -85,7 +85,6 @@ const CircuitoForm = ({
                             // onChange={() => subirArchivo(e.target.files)}
                             {...register('img')}
                             onChange={handleFileChange}
-                            required
 
                         />
                         {/* {watchImg && <img id='preview-img' src={`https://backend.peruexploring.pe/storage/tours/${image}`} alt='preview' style={{ width: '200px', margin: '10px' }} />} */}
@@ -102,7 +101,6 @@ const CircuitoForm = ({
                             onChange={(e) => {
                                 setArchivoEnglish(e.target.files[0]);
                             }}
-                            required
 
                         />
                     </div>
@@ -118,7 +116,6 @@ const CircuitoForm = ({
                             onChange={(e) => {
                                 setArchivoSpanish(e.target.files[0]);
                             }}
-                            required
                         />
                     </div>
                     <button className='btn btn-primary m-4'>Enviar</button>

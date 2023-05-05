@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form'
 
 const TourForm = ({
   modal, image, toggle, handleSubmit, watch,
-  setImgData, imgData, setArchivoEnglish, setArchivoSpanish, archivoEnglish, archivoSpanish,
+  setImgData, setArchivoEnglish, setArchivoSpanish,
   submit, register, reset,
 }) => {
 
@@ -12,7 +12,9 @@ const TourForm = ({
   const [options, setOptions] = useState()
 
   const handleFileChange = (e) => {
+
     setImgData(e.target.files[0])
+    
     const file = e.target.files[0];
     const imgUrl = URL.createObjectURL(file);
     document.getElementById('preview-img').src = imgUrl;
@@ -92,12 +94,13 @@ const TourForm = ({
               type='file'
               className='form-control'
               id='img'
+
               {...register('img')}
               onChange={handleFileChange}
 
 
             />
-            {watchImg && <img id='preview-img' src={`https://backend.peruexploring.pe/storage/tours/${image}`} alt='preview' style={{ width: '200px', margin: '10px' }} />}
+            {/* {watchImg && <img id='preview-img' src={`https://backend.peruexploring.pe/storage/tours/${image}`} alt='preview' style={{ width: '200px', margin: '10px' }} />} */}
           </div>
           <div className="form-group m-4">
             <label htmlFor="archivo_english">Subir Archivo en Ingles </label>

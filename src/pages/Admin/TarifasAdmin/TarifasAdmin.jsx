@@ -9,6 +9,7 @@ import tarifaBD from '../../../apis/tarifas'
 import TarifasForm from './TarifasForm'
 const MySwal = withReactContent(Swal)
 const URL = 'https://backend.peruexploring.pe/api/v1/tarifa'
+const URLUPDATE = 'https://backend.peruexploring.pe/api/v1/tarifa-file'
 
 const TarifasAdmin = () => {
     const [tarifas, setTarifas] = useState()
@@ -17,22 +18,36 @@ const TarifasAdmin = () => {
 
     const { handleSubmit, register, reset, watch } = useForm()
     const [objUpdate, setObjUpdate] = useState()
-
+    const [isUpdate, setIsUpdate] = useState(false)
+    const [archivo, setArchivo] = useState()
     const toggle = () => {
+        setIsUpdate(false)
         setModal(!modal)
         if (objUpdate !== undefined) {
             reset(defaultValuesForm)
         }
     };
+    const defaultValuesForm = {
+        nombre_tarifa: '',
+        user_id: '',
+        archivo: '',
+    }
     const updateTarifa = (id, data) => {
-        axios.patch(`${URL}/${id}`, data)
+        const formData = new FormData();
+        formData.append('archivo', archivo);
+        formData.append('id', data.id);
+        formData.append('nombre_tarifa', data.nombre_tarifa);
+        formData.append('user_id', data.user_id);
+        axios.post(`${URLUPDATE}`, formData)
             .then(res => {
+                setEstado(true)
             })
             .catch(err => console.log(err))
     }
     const updateTarifaById = (id) => {
 
         toggle.call()
+        setIsUpdate(true)
         tarifaBD.get(`/${id}`)
             .then(res => {
                 setObjUpdate(res?.data)
@@ -44,21 +59,27 @@ const TarifasAdmin = () => {
     }
 
     const createTarifa = data => {
-        axios.post(URL, data)
+        const formData = new FormData();
+        formData.append('archivo', archivo);
+        formData.append('nombre_tarifa', data.nombre_tarifa);
+        formData.append('user_id', data.user_id);
+        axios.post(URL, formData)
             .then(res => {
+                setEstado(true)
             })
             .catch(err => console.log(err))
         // .finally(() => console.log(res.data))
     }
 
     const submit = data => {
-        if (objUpdate !== undefined) {
-
+        // if (objUpdate !== undefined) {
+        if (isUpdate) {
             updateTarifa(objUpdate?.id, data)
             reset(defaultValuesForm)
             toggle.call()
 
         } else {
+            setIsUpdate(false)
             reset(defaultValuesForm)
             createTarifa(data)
             toggle.call()
@@ -102,8 +123,8 @@ const TarifasAdmin = () => {
             .then(res => setTarifas(res.data))
             .catch(err => console.log(err))
     }, [estado])
-    const descargarTarifa = (archivo) => {
-        window.open(`https://backend.peruexploring.pe/storage/tarifario/${archivo}`, '_blank');
+    const descargarTarifa = (archivo, nombre_tarifa) => {
+        window.open(`https://backend.peruexploring.pe/storage/tarifario/${nombre_tarifa}/${archivo}`, '_blank');
 
     }
     const columns = [
@@ -127,7 +148,7 @@ const TarifasAdmin = () => {
             cell: row => {
                 return (
                     <div>
-                        <button className='btn btn-success' onClick={() => descargarTarifa(row?.archivo)}>
+                        <button className='btn btn-success' onClick={() => descargarTarifa(row?.archivo, row?.nombre_tarifa)}>
                             <i className='bx bx-file' style={{ fontSize: '30px' }}></i>
                         </button>
 
@@ -218,6 +239,7 @@ const TarifasAdmin = () => {
                 register={register}
                 reset={reset}
                 watch={watch}
+                setArchivo={setArchivo}
             />
         </div>
     )
