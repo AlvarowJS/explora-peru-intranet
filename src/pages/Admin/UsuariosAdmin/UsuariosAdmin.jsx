@@ -219,10 +219,11 @@ const UsuariosAdmin = () => {
         return (
           <div className='local_buttons'>
             <button className='btn btn-success' onClick={() => activeUser(row?.id)}>
-              Activar
+              <i className='bx  bxs-user-check' ></i>
+
             </button>
             <button className='btn btn-warning' onClick={() => desactiveUser(row?.id)}>
-              Desactivar
+              <i className='bx bxs-user-minus' ></i>
             </button>
             <button className='btn btn-danger' onClick={() => deleteUserById(row?.id)}>
               <i className='bx bx-trash' ></i>

@@ -1,4 +1,6 @@
 .local_buttons{
+    display: flex;
+    gap: 5px;
     padding: 10px;
     /* text-align: center; */    
 }

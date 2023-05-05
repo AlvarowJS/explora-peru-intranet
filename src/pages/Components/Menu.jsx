@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import SideNav, { Toggle, Nav, NavItem, NavIcon, NavText } from '@trendmicro/react-sidenav';
+// import './Menu.css'
 
 import '@trendmicro/react-sidenav/dist/react-sidenav.css';
 import { useNavigate } from 'react-router-dom';
@@ -35,8 +36,8 @@ const Menu = () => {
         <>
             <div className="d-md-none">
 
-                <button onClick={handleToggle}
-                    style={{ color: "#5b2491", border: "none", padding: "7px", borderRadius: "8px" }}
+                <button onClick={handleToggle} className='button_menu'
+                    style={{ color: "#5b2491", border: "none", padding: "7px", borderRadius: "8px", top: "10px",left: "10px" }}
                 >
                     <i className='bx bx-menu' style={{ color: "#5b2491", fontWeight: "bold", fontSize: "30px" }}></i>
                 </button>

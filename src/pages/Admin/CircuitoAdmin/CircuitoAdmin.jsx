@@ -83,7 +83,7 @@ const CircuitoAdmin = () => {
         archivo_english: '',
         archivo_spanish: ''
     }
-   
+
 
     const updateCircuito = (id, data) => {
         // console.log(prueba, 'check1')
@@ -185,7 +185,7 @@ const CircuitoAdmin = () => {
         descripcion: '',
         nombre_english: '',
         horario_english: '',
-        descripcion_english: '',       
+        descripcion_english: '',
     }
     const updateDia = (id, data) => {
         // console.log(prueba, 'check1')
@@ -244,7 +244,7 @@ const CircuitoAdmin = () => {
             }
         })
     }
-    
+
     const registrarDia = (id) => {
         setIdCirc(id)
         toggleDia.call()
@@ -381,12 +381,12 @@ const CircuitoAdmin = () => {
             sortable: true,
             cell: row => {
                 return (
-                    <div>
-                        <button className='btn btn-outline-warning mx-2' onClick={() => updateDiaById(row?.id)}>
-                            Actualizar
+                    <div className='local_buttons'>
+                        <button className='btn btn-outline-warning' onClick={() => updateDiaById(row?.id)}>
+                            <i class='bx bx-edit-alt' ></i>
                         </button>
                         <button className='btn btn-outline-danger' onClick={() => deleteDiaById(row?.id)}>
-                            Eliminar
+                            <i class='bx bx-trash' ></i>
                         </button>
                     </div>
                 )
