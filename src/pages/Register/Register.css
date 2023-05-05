@@ -1,0 +1,127 @@
+.register-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-gap: 30px;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.register-left {
+    /* display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    height: 100%; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    height: 100%;
+}
+
+.register-left img {
+    /* max-width: 100%;
+    max-height: 100%; */
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.register-right {
+
+    padding: 20px 100px;
+
+}
+
+.register-right h2 {
+    margin-bottom: 20px;
+}
+
+.register-right form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.register-right label {
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+
+.register-right input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+.register-right button {
+    background-color: #353A40;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-bottom: 20px;
+}
+
+.register-right-create {
+    text-align: center;
+    margin: 10px 40px;
+}
+
+.register-right-create span {
+    color: #2C73EB;
+}
+
+.register-right button:hover {
+    background-color: #0069d9;
+}
+
+.register-right-row {
+    display: flex;
+
+}
+
+.input-group {
+    display: grid;
+    grid-template-columns: 49% 49%;
+    gap: 20px;
+}
+
+.input-group label {
+    flex: 1;
+    margin-right: 1em;
+}
+
+.input-group input {
+    flex: 2;
+    width: 100%;
+}
+.input-check{
+    display: grid;
+    grid-template-columns: 5% 90%;
+}
+
+@media (max-width: 768px) {
+    .register-container {
+        grid-template-columns: 1fr;
+        padding: 30px;
+    }
+
+    .register-left {
+        display: none;
+    }
+
+    .register-right {
+        width: 100%;
+    }
+
+    .input-group {
+        display: flex;
+        /* grid-template-columns: 49% 49%; */
+        flex-wrap: wrap;
+        gap: 20px;
+    }
+}

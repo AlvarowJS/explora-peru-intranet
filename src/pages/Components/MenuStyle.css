@@ -1,0 +1,12 @@
+.content-container {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    margin: 20px;
+  }
+  
+  @media only screen and (min-width: 768px) {
+    .content-container.menu-expanded {
+      margin-left: 240px;
+    }
+  }

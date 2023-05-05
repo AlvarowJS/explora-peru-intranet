@@ -1,0 +1,12 @@
+.container {
+    width: 100%;
+    /* background-color: #D9D9D9; */
+    padding-left: 40px;
+    position: relative;
+    /* margin-top: 100px; */
+    height: 100vh;
+    overflow: auto;
+    /* text-align: center; */
+    /* Habilitar barra de desplazamiento */
+
+}

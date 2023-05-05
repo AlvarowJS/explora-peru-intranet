@@ -1,0 +1,14 @@
+.circuitointra__card {
+    display: flex;
+    background-color: #D9D9D9;
+    border-radius: 10px;
+    margin-bottom: 10px;
+
+}
+
+.circuitointra__card-img img {
+    width: 200px;
+    height: 100%;
+    border-radius: 10px;
+    margin-right: 10px;
+}
