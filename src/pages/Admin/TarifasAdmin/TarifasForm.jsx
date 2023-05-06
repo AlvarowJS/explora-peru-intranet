@@ -32,7 +32,7 @@ const TarifasForm = ({
     return (
         <Modal show={modal} onHide={toggle} size='lg'>
             <Modal.Header closeButton>
-                <Modal.Title>Registrar Tour</Modal.Title>
+                <Modal.Title>Registrar Tarifa</Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 <form onSubmit={handleSubmit(submit)}>

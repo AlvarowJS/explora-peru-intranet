@@ -18,7 +18,7 @@ const TourIntraCard = ({ tour }) => {
                     <h2>{tour.titulo}</h2>
                     <p>{(tour.descripcion_spanish).substring(0, 100) + "..."}</p>
                     <div>
-                        <p>{tour.duracion}</p>
+                        <p>{tour.duracion} Horas</p>
                         
                     </div>
                 </div>
