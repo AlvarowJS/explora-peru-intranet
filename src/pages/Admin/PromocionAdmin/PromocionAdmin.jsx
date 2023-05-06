@@ -3,7 +3,7 @@ import './../style.css'
 import DataTable from 'react-data-table-component'
 import axios from 'axios'
 const URL = 'https://backend.peruexploring.pe/api/v1/promos'
-const URLUPDATE = 'https://backend.peruexploring.pe/api/v1/promos-img'
+const URLUPDATEIMG = 'https://backend.peruexploring.pe/api/v1/promos-img'
 
 
 import { useForm } from 'react-hook-form'
@@ -96,7 +96,7 @@ const PromocionAdmin = () => {
     formData.append('no_incluye_spanish', data.no_incluye_spanish);
     formData.append('duracion', data.duracion);
 
-    axios.post(`${URLUPDATE}`, formData)
+    axios.post(`${URLUPDATEIMG}`, formData)
       .then(res => {
         setEstado(true)
         

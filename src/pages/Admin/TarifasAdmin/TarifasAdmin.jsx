@@ -164,7 +164,8 @@ const TarifasAdmin = () => {
                 return (
                     <div>
                         {
-                            row?.user.razon_social
+                            row?.user?.razon_social
+                            // row?.user.razon_social == undefined ? null : row?.user.razon_social
                         }
 
                     </div >
@@ -179,7 +180,8 @@ const TarifasAdmin = () => {
                 return (
                     <div>
                         {
-                            row?.user.ruc
+                            row?.user?.ruc
+                            // row?.user.ruc == undefined ? null : row?.user.ruc
                         }
 
                     </div >

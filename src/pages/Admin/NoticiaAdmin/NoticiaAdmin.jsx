@@ -4,6 +4,7 @@ import DataTable from 'react-data-table-component'
 import axios from 'axios'
 const URL = 'https://backend.peruexploring.pe/api/v1/noticias'
 const URLIMG = 'https://backend.peruexploring.pe/api/v1/noticias-img'
+const URLDELETE = 'https://backend.peruexploring.pe/api/v1/noticias-eliminar'
 import { useForm } from 'react-hook-form'
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
@@ -83,7 +84,7 @@ const NoticiaAdmin = () => {
       .then(res => {
         setEstado(true)
         // setObjUpdate(undefined)
-        
+
       })
       .catch(err => console.log(err))
   }
@@ -103,7 +104,7 @@ const NoticiaAdmin = () => {
   const submit = data => {
     console.log(data, "data")
     // if (objUpdate !== undefined) {
-      if (isUpdate) {
+    if (isUpdate) {
       updateNoticia(objUpdate?.id, data)
       reset(defaultValuesForm)
       toggle.call()
@@ -115,7 +116,7 @@ const NoticiaAdmin = () => {
       toggle.call()
     }
   }
-  console.log(isUpdate, "?")
+  
   const deleteTourById = (id) => {
     return MySwal.fire({
       title: '¿Estás seguro de eliminar?',
@@ -141,6 +142,7 @@ const NoticiaAdmin = () => {
         })
         axios.delete(`${URL}/${id}/`)
           .then(res => {
+            setEstado(true)
           })
           .catch(err => console.log(err))
       }
