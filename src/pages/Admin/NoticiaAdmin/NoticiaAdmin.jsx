@@ -2,9 +2,10 @@ import React, { useEffect, useState } from 'react'
 import './../style.css'
 import DataTable from 'react-data-table-component'
 import axios from 'axios'
-const URL = 'https://backend.peruexploring.pe/api/v1/noticias'
-const URLIMG = 'https://backend.peruexploring.pe/api/v1/noticias-img'
-const URLDELETE = 'https://backend.peruexploring.pe/api/v1/noticias-eliminar'
+const URL = 'https://auxbackend.peruexploring.pe/api/v1/noticias'
+const URLIMG = 'https://auxbackend.peruexploring.pe/api/v1/noticias-img'
+const URLDELETE = 'https://auxbackend.peruexploring.pe/api/v2/noticias-eliminar'
+// const URLDELETE = 'https://auxbackend.peruexploring.pe/api/v2/noticias'
 import { useForm } from 'react-hook-form'
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
@@ -22,6 +23,7 @@ const NoticiaAdmin = () => {
   const [imgData, setImgData] = useState()
   const [prueba, setPrueba] = useState(null)
   const [isUpdate, setIsUpdate] = useState(false)
+  const [token, setToken] = useState()
 
   const { handleSubmit, register, reset, watch } = useForm()
   const [objUpdate, setObjUpdate] = useState()
@@ -33,8 +35,9 @@ const NoticiaAdmin = () => {
       reset(defaultValuesForm)
     }
   };
-
+  console.log(token)
   useEffect(() => {
+    setToken(localStorage.getItem('token'))
     setEstado(false)
     noticiasBD.get()
       .then(res => setNoticias(res.data))
@@ -88,7 +91,7 @@ const NoticiaAdmin = () => {
       })
       .catch(err => console.log(err))
   }
-  console.log(objUpdate)
+
   const updateNoticiaById = (id) => {
     toggle.call()
     setIsUpdate(true)
@@ -116,8 +119,9 @@ const NoticiaAdmin = () => {
       toggle.call()
     }
   }
-  
+
   const deleteTourById = (id) => {
+
     return MySwal.fire({
       title: '¿Estás seguro de eliminar?',
       text: "¡No podrás revertir esto!",
@@ -141,6 +145,15 @@ const NoticiaAdmin = () => {
           }
         })
         axios.delete(`${URL}/${id}/`)
+        //   {
+        //     headers: {
+        //     'Access-Control-Allow-Origin': 'https://auxbackend.peruexploring.pe/',
+        //     'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+        //     'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+        //     'Authorization': 'Bearer ' + token
+        //     }
+        //   }
+        // )
           .then(res => {
             setEstado(true)
           })

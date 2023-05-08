@@ -8,8 +8,8 @@ import withReactContent from 'sweetalert2-react-content'
 import tarifaBD from '../../../apis/tarifas'
 import TarifasForm from './TarifasForm'
 const MySwal = withReactContent(Swal)
-const URL = 'https://backend.peruexploring.pe/api/v1/tarifa'
-const URLUPDATE = 'https://backend.peruexploring.pe/api/v1/tarifa-file'
+const URL = 'https://auxbackend.peruexploring.pe/api/v1/tarifa'
+const URLUPDATE = 'https://auxbackend.peruexploring.pe/api/v1/tarifa-file'
 
 const TarifasAdmin = () => {
     const [tarifas, setTarifas] = useState()
@@ -124,7 +124,7 @@ const TarifasAdmin = () => {
             .catch(err => console.log(err))
     }, [estado])
     const descargarTarifa = (archivo, nombre_tarifa) => {
-        window.open(`https://backend.peruexploring.pe/storage/tarifario/${nombre_tarifa}/${archivo}`, '_blank');
+        window.open(`https://auxbackend.peruexploring.pe/storage/tarifario/${nombre_tarifa}/${archivo}`, '_blank');
 
     }
     const columns = [

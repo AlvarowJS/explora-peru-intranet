@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import portada from './../../assets/carril/about_1.png'
 import logo from './../../assets/logo/logo.png'
 import { useForm } from 'react-hook-form'
-const URL = 'https://backend.peruexploring.pe/api/login'
+const URL = 'https://auxbackend.peruexploring.pe/api/login'
 
 import './Login.css'
 import { Link, useNavigate } from 'react-router-dom'

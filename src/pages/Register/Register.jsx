@@ -8,7 +8,7 @@ import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 import axios from 'axios'
 const MySwal = withReactContent(Swal)
-const URL = 'https://backend.peruexploring.pe/api/register'
+const URL = 'https://auxbackend.peruexploring.pe/api/register'
 const Register = () => {
 
 

@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react'
 import './../style.css'
 import DataTable from 'react-data-table-component'
 import axios from 'axios'
-const URL = 'https://backend.peruexploring.pe/api/v1/promos'
-const URLUPDATEIMG = 'https://backend.peruexploring.pe/api/v1/promos-img'
+const URL = 'https://auxbackend.peruexploring.pe/api/v1/promos'
+const URLUPDATEIMG = 'https://auxbackend.peruexploring.pe/api/v1/promos-img'
 
 
 import { useForm } from 'react-hook-form'

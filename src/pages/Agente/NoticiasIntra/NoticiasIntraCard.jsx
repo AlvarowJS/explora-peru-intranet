@@ -4,7 +4,7 @@ import './Noticia.css'
 const NoticiasIntraCard = ({ noticia }) => {
     const navigate = useNavigate()
     let img = noticia.img
-    img = `https://backend.peruexploring.pe/storage/noticias/${noticia?.titulo}/${img}`
+    img = `https://auxbackend.peruexploring.pe/storage/noticias/${noticia?.titulo}/${img}`
     const vernoticia = (id) => {
         navigate(`/noticia-intranet/${id}`)
     }

@@ -105,7 +105,7 @@ const TourForm = ({
 
 
                         />
-                        {watchImg && <img id='preview-img' src={`https://backend.peruexploring.pe/storage/tours/${image}`} alt='preview' style={{ width: '200px', margin: '10px' }} />}
+                        {watchImg && <img id='preview-img' src={`https://auxbackend.peruexploring.pe/storage/tours/${image}`} alt='preview' style={{ width: '200px', margin: '10px' }} />}
                     </div>
                     <div className="form-group m-4">
                         <label htmlFor="archivo_english">Subir Archivo en Ingles </label>

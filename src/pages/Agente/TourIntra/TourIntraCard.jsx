@@ -4,7 +4,7 @@ import './Tour.css'
 const TourIntraCard = ({ tour }) => {
     const navigate = useNavigate()
     let img = tour.img
-    img = `https://backend.peruexploring.pe/storage/tours/${tour.titulo}/${img}`
+    img = `https://auxbackend.peruexploring.pe/storage/tours/${tour.titulo}/${img}`
     const verTour = (id) => {
         navigate(`/tour-intranet/${id}`)
     }

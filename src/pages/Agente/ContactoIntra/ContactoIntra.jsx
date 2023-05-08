@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form'
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 const MySwal = withReactContent(Swal)
-const URL = 'https://backend.peruexploring.pe/api/v1/contactenos'
+const URL = 'https://auxbackend.peruexploring.pe/api/v1/contactenos'
 const ContactoIntra = () => {
   const { handleSubmit, register, reset, watch } = useForm()
   const defaultValuesForm = {
