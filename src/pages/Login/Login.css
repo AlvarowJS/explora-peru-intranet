@@ -38,7 +38,7 @@
 }
 
 .login-right img {
-    width: 240px;
+    width: 150px;
     position: absolute;    
     top: 10px;
     right: 50px;
@@ -117,8 +117,9 @@
 
     .login-right img {
         position: relative;
-        width: 50%;
+        width: 30%;
         margin-left: 300px;
         height: auto;
+        padding-bottom: 80px;
     }
 }

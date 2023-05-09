@@ -1,5 +1,5 @@
 import React from 'react'
-import logo from './../../../assets/carril/about_2.png'
+import logo from './../../../assets/carril/home_intra.png'
 import './HomeIntra.css'
 const HomeIntra = () => {
   return (
