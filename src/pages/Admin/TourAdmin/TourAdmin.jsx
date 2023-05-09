@@ -3,8 +3,8 @@ import './../style.css'
 import DataTable from 'react-data-table-component'
 import axios from 'axios'
 import toursBD from '../../../apis/tours'
-const URL = 'https://auxbackend.peruexploring.pe/api/v1/tours'
-const URLUPDATE = 'https://auxbackend.peruexploring.pe/api/v1/tours-img'
+const URL = 'https://backend.peruexploring.pe/public/api/v1/tours'
+const URLUPDATE = 'https://backend.peruexploring.pe/public/api/v1/tours-img'
 
 import TourForm from './TourForm'
 import { useForm } from 'react-hook-form'
@@ -23,7 +23,8 @@ const TourAdmin = () => {
     const [archivoEnglish, setArchivoEnglish] = useState()
     const [archivoSpanish, setArchivoSpanish] = useState()
     const [isUpdate, setIsUpdate] = useState(false)
-
+    const [filter, setFilter] = useState()
+    const [search, setSearch] = useState()
     const { handleSubmit, register, reset, watch } = useForm()
     const [objUpdate, setObjUpdate] = useState()
 
@@ -34,7 +35,14 @@ const TourAdmin = () => {
             reset(defaultValuesForm)
         }
     };
-
+    useEffect(() => {
+        if (tours) {
+            setFilter(tours?.filter(e => e.titulo.toLowerCase().indexOf(search?.toLowerCase()) !== -1))
+        }
+    }, [search])
+    const buscarTour = () => {
+        setSearch(event.target.value)
+    }
     useEffect(() => {
         setEstado(false)
         toursBD.get()
@@ -62,6 +70,13 @@ const TourAdmin = () => {
             .then(res => {
                 console.log(res.data)
                 setEstado(true)
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: 'Tour Registrado',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
             })
             .catch(err => console.log(err))
         // .finally(() => console.log(res.data))
@@ -98,6 +113,13 @@ const TourAdmin = () => {
         axios.post(`${URLUPDATE}`, formData)
             .then(res => {
                 setEstado(true)
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: 'Tour Actualizado',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
             })
             .catch(err => console.log(err))
     }
@@ -246,10 +268,15 @@ const TourAdmin = () => {
         <>
             <div className='container'>
                 <button onClick={toggle} className='btn btn-success m-2'>Registrar Tour</button>
+                <div className='tours__filters'>
+                    <div className='tours__filters--buscador'>
+                        <input type="text" onChange={() => buscarTour()} placeholder='buscar por titulo'/><i className='bx bx-search-alt-2'></i>
+                    </div>
+                </div>
                 <DataTable
                     title="Administrar Tours"
                     columns={columns}
-                    data={tours}
+                    data={filter ? filter : tours}
                     pagination
                     selectableRows
                 />

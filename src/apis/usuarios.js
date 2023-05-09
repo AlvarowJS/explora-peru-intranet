@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const usuarioBD = axios.create({    
-    baseURL: 'https://auxbackend.peruexploring.pe/api/all-users'    
+    baseURL: 'https://backend.peruexploring.pe/public/api/all-users'    
 })
 
 export default usuarioBD

@@ -8,9 +8,9 @@ import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 import usuarioBD from '../../../apis/usuarios'
 const MySwal = withReactContent(Swal)
-const URLACTIVATE = 'https://auxbackend.peruexploring.pe/api/active-user'
-const URLDESACTIVATE = 'https://auxbackend.peruexploring.pe/api/desactivate-user'
-const URLDELETE = 'https://auxbackend.peruexploring.pe/api/delete-users'
+const URLACTIVATE = 'https://backend.peruexploring.pe/public/api/active-user'
+const URLDESACTIVATE = 'https://backend.peruexploring.pe/public/api/desactivate-user'
+const URLDELETE = 'https://backend.peruexploring.pe/public/api/delete-users'
 
 const UsuariosAdmin = () => {
   const [users, setUsers] = useState()
@@ -20,6 +20,8 @@ const UsuariosAdmin = () => {
   const [image, setImage] = useState()
   const [imgData, setImgData] = useState()
   const [prueba, setPrueba] = useState(null)
+  const [filter, setFilter] = useState()
+  const [search, setSearch] = useState()
 
   const { handleSubmit, register, reset, watch } = useForm()
   const [objUpdate, setObjUpdate] = useState()
@@ -30,6 +32,15 @@ const UsuariosAdmin = () => {
       reset(defaultValuesForm)
     }
   };
+
+  useEffect(() => {
+    if (users) {
+      setFilter(users?.filter(e => e.razon_social.toLowerCase().indexOf(search?.toLowerCase()) !== -1))
+    }
+  }, [search])
+  const buscarUser = () => {
+    setSearch(event.target.value)
+  }
   useEffect(() => {
     setEstado(false)
     usuarioBD.get()
@@ -238,10 +249,15 @@ const UsuariosAdmin = () => {
 
   return (
     <div className='container'>
+      <div className='tours__filters'>
+        <div className='tours__filters--buscador'>
+          <input type="text" onChange={() => buscarUser()} placeholder='buscar por razón social' /><i className='bx bx-search-alt-2'></i>
+        </div>
+      </div>
       <DataTable
         title="Administrar Usuarios"
         columns={columns}
-        data={users}
+        data={filter ? filter : users}
         pagination
         selectableRows
       />

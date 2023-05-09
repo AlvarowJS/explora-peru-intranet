@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import portada from './../../assets/carril/about_1.png'
-import logo from './../../assets/logo/logo.png'
+import logo from './../../assets/logo/logo2.png'
 import { useForm } from 'react-hook-form'
-const URL = 'https://auxbackend.peruexploring.pe/api/login'
+const URL = 'https://backend.peruexploring.pe/public/api/login'
 
 import './Login.css'
 import { Link, useNavigate } from 'react-router-dom'
@@ -41,7 +41,7 @@ const Login = () => {
                     <img src={portada} alt="Imagen de login" />
                 </div>
                 <div className="login-right">
-       
+                    <img src={logo} alt="" />
                     <h2>
                         <b> Intranet</b>
                     </h2>

@@ -11,16 +11,16 @@ const TourIntraCardInfo = () => {
         toursBD.get(`/${id.id}`)
             .then(res => {
                 setTour(res.data)
-                setTourImg(`https://auxbackend.peruexploring.pe/storage/tours/${res.data.titulo}/${res.data.img}`)
+                setTourImg(`https://backend.peruexploring.pe/public/storage/tours/${res.data.titulo}/${res.data.img}`)
             })
             .catch(err => console.log(err))
     }, [])
     const descargarItinerarioEspaniol = () => {
         
-        window.open(`https://auxbackend.peruexploring.pe/storage/tours/${tour.titulo}/${tour.archivo_spanish}`,'_blank')        
+        window.open(`https://backend.peruexploring.pe/public/storage/tours/${tour.titulo}/${tour.archivo_spanish}`,'_blank')        
     }
     const descargarItinerarioEnglish = () => {
-        window.open(`https://auxbackend.peruexploring.pe/storage/tours/${tour.titulo}/${tour.archivo_english}`,'_blank')
+        window.open(`https://backend.peruexploring.pe/public/storage/tours/${tour.titulo}/${tour.archivo_english}`,'_blank')
     }
     return (
         <div className='container'>

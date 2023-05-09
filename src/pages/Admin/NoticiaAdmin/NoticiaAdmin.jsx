@@ -2,10 +2,10 @@ import React, { useEffect, useState } from 'react'
 import './../style.css'
 import DataTable from 'react-data-table-component'
 import axios from 'axios'
-const URL = 'https://auxbackend.peruexploring.pe/api/v1/noticias'
-const URLIMG = 'https://auxbackend.peruexploring.pe/api/v1/noticias-img'
-const URLDELETE = 'https://auxbackend.peruexploring.pe/api/v2/noticias-eliminar'
-// const URLDELETE = 'https://auxbackend.peruexploring.pe/api/v2/noticias'
+const URL = 'https://backend.peruexploring.pe/public/api/v1/noticias'
+const URLIMG = 'https://backend.peruexploring.pe/public/api/v1/noticias-img'
+const URLDELETE = 'https://backend.peruexploring.pe/public/api/v2/noticias-eliminar'
+// const URLDELETE = 'https://backend.peruexploring.pe/public/api/v2/noticias'
 import { useForm } from 'react-hook-form'
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
@@ -24,6 +24,8 @@ const NoticiaAdmin = () => {
   const [prueba, setPrueba] = useState(null)
   const [isUpdate, setIsUpdate] = useState(false)
   const [token, setToken] = useState()
+  const [filter, setFilter] = useState()
+  const [search, setSearch] = useState()
 
   const { handleSubmit, register, reset, watch } = useForm()
   const [objUpdate, setObjUpdate] = useState()
@@ -35,7 +37,11 @@ const NoticiaAdmin = () => {
       reset(defaultValuesForm)
     }
   };
-  console.log(token)
+  useEffect(() => {
+    if (noticias) {
+      setFilter(noticias?.filter(e => e.titulo.toLowerCase().indexOf(search?.toLowerCase()) !== -1))
+    }
+  }, [search])
   useEffect(() => {
     setToken(localStorage.getItem('token'))
     setEstado(false)
@@ -55,9 +61,19 @@ const NoticiaAdmin = () => {
     axios.post(URL, formData)
       .then(res => {
         setEstado(true)
+        Swal.fire({
+          position: 'top-end',
+          icon: 'success',
+          title: 'Noticia Creada',
+          showConfirmButton: false,
+          timer: 1500
+        })
       })
       .catch(err => console.log(err))
     // .finally(() => console.log(res.data))
+  }
+  const buscarNoticia = () => {
+    setSearch(event.target.value)
   }
 
   const defaultValuesForm = {
@@ -86,6 +102,13 @@ const NoticiaAdmin = () => {
     axios.post(`${URLIMG}`, formData)
       .then(res => {
         setEstado(true)
+        Swal.fire({
+          position: 'top-end',
+          icon: 'success',
+          title: 'Noticia Actualizada',
+          showConfirmButton: false,
+          timer: 1500
+        })
         // setObjUpdate(undefined)
 
       })
@@ -145,15 +168,15 @@ const NoticiaAdmin = () => {
           }
         })
         axios.delete(`${URL}/${id}/`)
-        //   {
-        //     headers: {
-        //     'Access-Control-Allow-Origin': 'https://auxbackend.peruexploring.pe/',
-        //     'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
-        //     'Access-Control-Allow-Headers': 'Content-Type, Authorization',
-        //     'Authorization': 'Bearer ' + token
-        //     }
-        //   }
-        // )
+          //   {
+          //     headers: {
+          //     'Access-Control-Allow-Origin': 'https://backend.peruexploring.pe/public/',
+          //     'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+          //     'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+          //     'Authorization': 'Bearer ' + token
+          //     }
+          //   }
+          // )
           .then(res => {
             setEstado(true)
           })
@@ -214,10 +237,15 @@ const NoticiaAdmin = () => {
     <>
       <div className='container'>
         <button onClick={toggle} className='btn btn-success m-2'>Registrar Noticia</button>
+        <div className='tours__filters'>
+          <div className='tours__filters--buscador'>
+            <input type="text" onChange={() => buscarNoticia()} /><i className='bx bx-search-alt-2'></i>
+          </div>
+        </div>
         <DataTable
           title="Administrar Noticias"
           columns={columns}
-          data={noticias}
+          data={filter ? filter : noticias}
           pagination
           selectableRows
         />

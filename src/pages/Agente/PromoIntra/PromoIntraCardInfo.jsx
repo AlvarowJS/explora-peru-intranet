@@ -11,16 +11,16 @@ const PromoIntraCardInfo = () => {
         promosBD.get(`/${id.id}`)
             .then(res => {
                 setPromo(res.data)
-                setPromoImg(`https://auxbackend.peruexploring.pe/storage/promos/${res.data.titulo}/${res.data.img}`)
+                setPromoImg(`https://backend.peruexploring.pe/public/storage/promos/${res.data.titulo}/${res.data.img}`)
             })
             .catch(err => console.log(err))
     }, [])
     const descargarItinerarioEspaniol = () => {
         
-        window.open(`https://auxbackend.peruexploring.pe/storage/promos/${promo.titulo}/${promo.archivo_spanish}`,'_blank')        
+        window.open(`https://backend.peruexploring.pe/public/storage/promos/${promo.titulo}/${promo.archivo_spanish}`,'_blank')        
     }
     const descargarItinerarioEnglish = () => {
-        window.open(`https://auxbackend.peruexploring.pe/storage/promos/${promo.titulo}/${promo.archivo_english}`,'_blank')
+        window.open(`https://backend.peruexploring.pe/public/storage/promos/${promo.titulo}/${promo.archivo_english}`,'_blank')
     }
     return (
         <div className='container'>

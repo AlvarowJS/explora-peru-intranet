@@ -3,9 +3,9 @@ import './../style.css'
 import DataTable from 'react-data-table-component'
 import axios from 'axios'
 import circuitoBD from '../../../apis/circuitos'
-const URL = 'https://auxbackend.peruexploring.pe/api/v1/circuitos'
-const URLDIAS = 'https://auxbackend.peruexploring.pe/api/v1/dias'
-const URLUPDATE = 'https://auxbackend.peruexploring.pe/api/v1/circuitos-img'
+const URL = 'https://backend.peruexploring.pe/public/api/v1/circuitos'
+const URLDIAS = 'https://backend.peruexploring.pe/public/api/v1/dias'
+const URLUPDATE = 'https://backend.peruexploring.pe/public/api/v1/circuitos-img'
 import { useForm } from 'react-hook-form'
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
@@ -28,7 +28,8 @@ const CircuitoAdmin = () => {
     const [prueba, setPrueba] = useState(null)
     const [idCirc, setIdCirc] = useState()
     const [isUpdate, setIsUpdate] = useState(false)
-
+    const [filter, setFilter] = useState()
+    const [search, setSearch] = useState()
     const { handleSubmit, register, reset, watch } = useForm()
     const [objUpdate, setObjUpdate] = useState()
     const [objUpdateDia, setObjUpdateDia] = useState()
@@ -48,6 +49,15 @@ const CircuitoAdmin = () => {
             reset(defaultValuesFormDia)
         }
     };
+
+    useEffect(() => {
+        if (circuito) {
+            setFilter(circuito?.filter(e => e.titulo.toLowerCase().indexOf(search?.toLowerCase()) !== -1))
+        }
+    }, [search])
+    const buscarCircuito = () => {
+        setSearch(event.target.value)
+    }
 
     useEffect(() => {
         setEstado(false)
@@ -71,6 +81,13 @@ const CircuitoAdmin = () => {
         axios.post(URL, formData)
             .then(res => {
                 setEstado(true)
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: 'Circuito Registrado',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
             })
             .catch(err => console.log(err))
         // .finally(() => console.log(res.data))
@@ -105,6 +122,13 @@ const CircuitoAdmin = () => {
         axios.post(`${URLUPDATE}`, formData)
             .then(res => {
                 setEstado(true)
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: 'Circuito Actualizado',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
             })
             .catch(err => console.log(err))
     }
@@ -153,18 +177,25 @@ const CircuitoAdmin = () => {
         }).then(function (result) {
             setEstado(true)
             if (result.value) {
-                MySwal.fire({
-                    icon: 'success',
-                    title: 'Eliminado!',
-                    text: 'El registro a sido eliminado.',
-                    customClass: {
-                        confirmButton: 'btn btn-success'
-                    }
-                })
                 axios.delete(`${URL}/${id}/`)
                     .then(res => {
+                        MySwal.fire({
+                            icon: 'success',
+                            title: 'Eliminado!',
+                            text: 'El registro a sido eliminado.',
+                            customClass: {
+                                confirmButton: 'btn btn-success'
+                            }
+                        })
                     })
-                    .catch(err => console.log(err))
+                    .catch(err => {
+                        console.log(err)
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Primero elimine todos los dias!',
+                        })
+                    })
             }
         })
     }
@@ -183,6 +214,13 @@ const CircuitoAdmin = () => {
         axios.post(URLDIAS, formData)
             .then(res => {
                 setEstado(true)
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: 'Dia Registrada',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
             })
             .catch(err => console.log(err))
     }
@@ -208,6 +246,13 @@ const CircuitoAdmin = () => {
         axios.patch(`${URLDIAS}/${id}`, data)
             .then(res => {
                 setEstado(true)
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: 'Dia Actualizado',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
             })
             .catch(err => console.log(err))
     }
@@ -421,10 +466,15 @@ const CircuitoAdmin = () => {
         <>
             <div className='container'>
                 <button onClick={toggle} className='btn btn-success m-2'>Registrar Circuito</button>
+                <div className='tours__filters'>
+                    <div className='tours__filters--buscador'>
+                        <input type="text" onChange={() => buscarCircuito()} placeholder='buscar por titulo'/><i className='bx bx-search-alt-2'></i>
+                    </div>
+                </div>
                 <DataTable
                     title="Administrar Circuitos"
                     columns={columns}
-                    data={circuito}
+                    data={filter ? filter : circuito}
                     pagination
                     // selectableRows
                     expandableRows

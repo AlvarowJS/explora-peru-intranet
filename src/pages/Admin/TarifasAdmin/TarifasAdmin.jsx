@@ -8,8 +8,8 @@ import withReactContent from 'sweetalert2-react-content'
 import tarifaBD from '../../../apis/tarifas'
 import TarifasForm from './TarifasForm'
 const MySwal = withReactContent(Swal)
-const URL = 'https://auxbackend.peruexploring.pe/api/v1/tarifa'
-const URLUPDATE = 'https://auxbackend.peruexploring.pe/api/v1/tarifa-file'
+const URL = 'https://backend.peruexploring.pe/public/api/v1/tarifa'
+const URLUPDATE = 'https://backend.peruexploring.pe/public/api/v1/tarifa-file'
 
 const TarifasAdmin = () => {
     const [tarifas, setTarifas] = useState()
@@ -20,6 +20,19 @@ const TarifasAdmin = () => {
     const [objUpdate, setObjUpdate] = useState()
     const [isUpdate, setIsUpdate] = useState(false)
     const [archivo, setArchivo] = useState()
+
+    const [filter, setFilter] = useState()
+    const [search, setSearch] = useState()
+
+    useEffect(() => {
+        if (tarifas) {
+            setFilter(tarifas?.filter(e => e.nombre_tarifa.toLowerCase().indexOf(search?.toLowerCase()) !== -1))
+        }
+    }, [search])
+    const buscarTarifa = () => {
+        setSearch(event.target.value)
+    }
+
     const toggle = () => {
         setIsUpdate(false)
         setModal(!modal)
@@ -41,6 +54,13 @@ const TarifasAdmin = () => {
         axios.post(`${URLUPDATE}`, formData)
             .then(res => {
                 setEstado(true)
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: 'Tarifa Actualizada',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
             })
             .catch(err => console.log(err))
     }
@@ -53,6 +73,7 @@ const TarifasAdmin = () => {
                 setObjUpdate(res?.data)
                 const object = res?.data
                 reset(object)
+
             })
             .catch(err => console.log(err))
 
@@ -66,6 +87,13 @@ const TarifasAdmin = () => {
         axios.post(URL, formData)
             .then(res => {
                 setEstado(true)
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: 'Tarifa Creada',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
             })
             .catch(err => console.log(err))
         // .finally(() => console.log(res.data))
@@ -124,7 +152,7 @@ const TarifasAdmin = () => {
             .catch(err => console.log(err))
     }, [estado])
     const descargarTarifa = (archivo, nombre_tarifa) => {
-        window.open(`https://auxbackend.peruexploring.pe/storage/tarifario/${nombre_tarifa}/${archivo}`, '_blank');
+        window.open(`https://backend.peruexploring.pe/public/storage/tarifario/${nombre_tarifa}/${archivo}`, '_blank');
 
     }
     const columns = [
@@ -225,10 +253,15 @@ const TarifasAdmin = () => {
     return (
         <div className='container'>
             <button onClick={toggle} className='btn btn-success m-2'>Registrar Tarifa</button>
+            <div className='tours__filters'>
+                <div className='tours__filters--buscador'>
+                    <input type="text" onChange={() => buscarTarifa()} placeholder='buscar por nombre referencial' /><i className='bx bx-search-alt-2'></i>
+                </div>
+            </div>
             <DataTable
                 title="Administrar Tarifas"
                 columns={columns}
-                data={tarifas}
+                data={filter ? filter :tarifas}
                 pagination
                 selectableRows
             />

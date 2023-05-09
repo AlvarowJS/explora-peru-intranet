@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react'
 import './../style.css'
 import DataTable from 'react-data-table-component'
 import axios from 'axios'
-const URL = 'https://auxbackend.peruexploring.pe/api/v1/promos'
-const URLUPDATEIMG = 'https://auxbackend.peruexploring.pe/api/v1/promos-img'
+const URL = 'https://backend.peruexploring.pe/public/api/v1/promos'
+const URLUPDATEIMG = 'https://backend.peruexploring.pe/public/api/v1/promos-img'
 
 
 import { useForm } from 'react-hook-form'
@@ -24,6 +24,8 @@ const PromocionAdmin = () => {
   const [archivoSpanish, setArchivoSpanish] = useState()
   const [prueba, setPrueba] = useState(null)
   const [isUpdate, setIsUpdate] = useState(false)
+  const [filter, setFilter] = useState()
+  const [search, setSearch] = useState()
 
   const { handleSubmit, register, reset, watch } = useForm()
   const [objUpdate, setObjUpdate] = useState()
@@ -35,6 +37,16 @@ const PromocionAdmin = () => {
       reset(defaultValuesForm)
     }
   };
+
+
+  useEffect(() => {
+    if (promocions) {
+      setFilter(promocions?.filter(e => e.titulo.toLowerCase().indexOf(search?.toLowerCase()) !== -1))
+    }
+  }, [search])
+  const buscarPromocion = () => {
+    setSearch(event.target.value)
+  }
 
   useEffect(() => {
     setEstado(false)
@@ -63,6 +75,13 @@ const PromocionAdmin = () => {
       .then(res => {
         setEstado(true)
         reset(defaultValuesForm)
+        Swal.fire({
+          position: 'top-end',
+          icon: 'success',
+          title: 'Promoción Registrada',
+          showConfirmButton: false,
+          timer: 1500
+        })
       })
       .catch(err => console.log(err))
     // .finally(() => console.log(res.data))
@@ -99,7 +118,13 @@ const PromocionAdmin = () => {
     axios.post(`${URLUPDATEIMG}`, formData)
       .then(res => {
         setEstado(true)
-        
+        Swal.fire({
+          position: 'top-end',
+          icon: 'success',
+          title: 'Promoción Actualizada',
+          showConfirmButton: false,
+          timer: 1500
+        })
       })
       .catch(err => console.log(err))
   }
@@ -134,7 +159,7 @@ const PromocionAdmin = () => {
     }
   }
 
-  
+
   const deleteTourById = (id) => {
     return MySwal.fire({
       title: '¿Estás seguro de eliminar?',
@@ -164,6 +189,7 @@ const PromocionAdmin = () => {
           }
         })
           .then(res => {
+            setEstado(true)
           })
           .catch(err => console.log(err))
       }
@@ -249,10 +275,15 @@ const PromocionAdmin = () => {
     <>
       <div className='container'>
         <button onClick={toggle} className='btn btn-success m-2'>Registrar Promoción</button>
+        <div className='tours__filters'>
+          <div className='tours__filters--buscador'>
+            <input type="text" onChange={() => buscarPromocion()} placeholder='buscar por titulo' /><i className='bx bx-search-alt-2'></i>
+          </div>
+        </div>
         <DataTable
           title="Administrar Promociones"
           columns={columns}
-          data={promocions}
+          data={filter ? filter : promocions}
           pagination
           selectableRows
         />
@@ -269,7 +300,7 @@ const PromocionAdmin = () => {
           setImgData={setImgData}
           setArchivoEnglish={setArchivoEnglish}
           setArchivoSpanish={setArchivoSpanish}
-          
+
         />
       </div>
     </>
