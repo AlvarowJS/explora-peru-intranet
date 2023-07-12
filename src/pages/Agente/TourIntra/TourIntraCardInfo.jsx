@@ -16,18 +16,18 @@ const TourIntraCardInfo = () => {
             .catch(err => console.log(err))
     }, [])
     const descargarItinerarioEspaniol = () => {
-        
-        window.open(`https://backend.peruexploring.pe/public/storage/tours/${tour.titulo}/${tour.archivo_spanish}`,'_blank')        
+
+        window.open(`https://backend.peruexploring.pe/public/storage/tours/${tour.titulo}/${tour.archivo_spanish}`, '_blank')
     }
     const descargarItinerarioEnglish = () => {
-        window.open(`https://backend.peruexploring.pe/public/storage/tours/${tour.titulo}/${tour.archivo_english}`,'_blank')
+        window.open(`https://backend.peruexploring.pe/public/storage/tours/${tour.titulo}/${tour.archivo_english}`, '_blank')
     }
     return (
         <div className='container'>
             <Link to='/tour-intranet'>
-                <i className='bx bx-left-arrow-alt mt-4'></i>   Regresar
+                <i className='bx bxs-chevron-left-circle' style={{fontSize: 40, marginTop: 20}}></i>
             </Link>
-            <h2>{tour?.titulo}</h2>
+            <h2 style={{color: '#DC8A4A'}}>{tour?.titulo}</h2>
 
             <div className='tourinfo'>
                 <img src={tourImg} alt="" />
@@ -39,14 +39,14 @@ const TourIntraCardInfo = () => {
                             className='btn btn-success'
                             style={{ backgroundColor: '#5B2491', borderColor: '#5B2491' }}
                             onClick={descargarItinerarioEspaniol}
-                            >
+                        >
                             Descargar Itinerario en Español
                         </button>
                         <button
                             className='btn btn-success'
                             style={{ backgroundColor: '#5B2491', borderColor: '#5B2491' }}
                             onClick={descargarItinerarioEnglish}
-                            >
+                        >
                             Download Itinerary in English
                         </button>
                     </div>

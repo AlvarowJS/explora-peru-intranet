@@ -68,11 +68,11 @@
 }
 
 .login-right button {
-    background-color: #353A40;
+    background-color: rgb(220, 138, 74);
     color: #fff;
     padding: 10px 20px;
     border: none;
-    border-radius: 5px;
+    border-radius: 10px;
     cursor: pointer;
     transition: all 0.3s ease;
     margin-bottom: 20px;
@@ -84,11 +84,11 @@
 }
 
 .login-right-create span {
-    color: #2C73EB;
+    /* color: #2C73EB; */
 }
 
 .login-right button:hover {
-    background-color: #0069d9;
+    background-color: rgb(255, 111, 0);
 }
 
 @media (max-width: 968px) {

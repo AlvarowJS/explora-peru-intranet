@@ -46,22 +46,23 @@ const CircuitoIntra = () => {
   }, [])
   return (
     <div className='container'>
-      <div className='circuitos__filters'>
-        <div className='circuitos__filters--buscador'>
-          <input type="text" onChange={() => buscarCircuito()} /><i className='bx bx-search-alt-2'></i>
+
+      <div className='mt-5' style={{ display: 'flex', gap: 10, alignItems: 'center' }}>
+        <div style={{ backgroundColor: '#DC8A4A', width: '20px', height: '20px' }}>
         </div>
-        <div className='circuitos__filters--select'>
-          <span>Buscar información en </span>
-          <select onChange={handleSelectChange}>
-            {
-              lugars && lugars.map(lugar => (
-                <option value={lugar?.nombre}>{lugar?.nombre}</option>
-              ))
-            }
-          </select>
+        <h3 style={{ color: '#DC8A4A' }}>Revisa nuestro itinerario de Circuitos </h3>
+      </div>
+
+      <div className="row">
+        <div className='col-md-6 col-sm-4'>
+
+        </div>
+        <div className='col-md-6 col-sm-8'>
+          <div className='tours__filters--buscador'>
+            <input placeholder='Buscar por título de circuito' type="text" onChange={() => buscarCircuito()} /><i className='bx bx-search-alt-2'></i>
+          </div>
         </div>
       </div>
-      <h2 style={{ color: '#5B2491' }}>Revisa nuestro itinerario de Circuitos </h2>
       {
         filter ?
           filter?.map(circuito => (

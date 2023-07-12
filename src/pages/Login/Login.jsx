@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import portada from './../../assets/carril/about_1.png'
+import portada from './../../assets/carril/intranet.png'
 import logo from './../../assets/logo/logo_negro.png'
 import { useForm } from 'react-hook-form'
 const URL = 'https://backend.peruexploring.pe/public/api/login'

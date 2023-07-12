@@ -10,17 +10,21 @@ const TourIntraCard = ({ tour }) => {
     }
     return (
         <>
-            <div className='tourintra__card' onClick={() => verTour(tour.id)}>
-                <div className='tourintra__card-img'>
-                    <img src={img} alt="" />
+            <div className='row align-items-center' >
+                <div className='col-3'>
+                    <img src={img} alt="" style={{ width: '100%', height: '150px', objectFit: 'cover', borderRadius: '10px' }} />
                 </div>
-                <div className='tourintra__card-desc'>
-                    <h2>{tour.titulo}</h2>
+
+                <div className='col-6'>
+                    <h2 style={{ color: '#DC8A4A' }}>{tour.titulo}</h2>
                     <p>{(tour.descripcion_spanish).substring(0, 100) + "..."}</p>
                     <div>
                         <p>{tour.duracion} Horas</p>
-                        
+
                     </div>
+                </div>
+                <div className='col-3'>
+                    <button className='btn' style={{ backgroundColor: '#DC8A4A', color: 'white', borderRadius: '20px' }} onClick={() => verTour(tour.id)}>Más Información</button>
                 </div>
 
             </div>

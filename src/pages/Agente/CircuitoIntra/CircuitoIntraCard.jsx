@@ -10,18 +10,23 @@ const CircuitoIntraCard = ({ circuito }) => {
     }
     return (
         <>
-            <div className='circuitointra__card' onClick={() => verCircuito(circuito?.id)}>
-                <div className='circuitointra__card-img'>
-                    <img src={img} alt="" />
+
+            <div className='row align-items-center' >
+                <div className='col-3'>
+                    <img src={img} alt="" style={{ width: '100%', height: '150px', objectFit: 'cover', borderRadius: '10px' }} />
                 </div>
-                <div className='circuitointra__card-desc'>
+
+                <div className='col-6'>
                     <h2>{circuito?.titulo}</h2>
                     <h4>Dias:</h4>
                     <p>{(circuito?.dias).length}</p>
                     <div>
                         <p>{circuito?.duracion}</p>
-                        
+
                     </div>
+                </div>
+                <div className='col-3'>
+                    <button className='btn' style={{ backgroundColor: '#DC8A4A', color: 'white', borderRadius: '20px' }} onClick={() => verCircuito(circuito?.id)}>Más Información</button>
                 </div>
 
             </div>
