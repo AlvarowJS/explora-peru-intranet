@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import portada from './../../assets/carril/intranet.png'
-import logo from './../../assets/logo/logo_negro.png'
+import logo from './../../assets/logo/logo.png'
 import { useForm } from 'react-hook-form'
 const URL = 'https://backend.peruexploring.pe/public/api/login'
 
@@ -62,7 +62,7 @@ const Login = () => {
                         }
 
                     </form>
-                    <p className='login-right-create'>Quieres ser un Agente?<span> <Link to='/register'>Rellene este formulario de Inscripción</Link></span></p>
+                    <p className='login-right-create'>Quieres ser un Agente?<span> <br /><Link to='/register'>Rellene este formulario de Inscripción</Link></span></p>
                 </div>
             </div>
 

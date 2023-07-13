@@ -1,6 +1,6 @@
 import React from 'react'
 import portada from './../../assets/carril/about_1.png'
-
+import logo from './../../assets/logo/logo.png'
 import './Register.css'
 import { Link } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
@@ -30,7 +30,7 @@ const Register = () => {
                     .then(res => {
                         console.log(res?.data)
                         // reset(defaultForm)
-                        
+
                         MySwal.fire({
                             icon: 'success',
                             title: 'Mensaje Enviado!',
@@ -66,6 +66,7 @@ const Register = () => {
                     <img src={portada} alt="Imagen de register" />
                 </div>
                 <div className="register-right">
+                    <img src={logo} alt="" />
                     <h2>
                         <b> Registro</b>
                     </h2>

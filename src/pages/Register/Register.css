@@ -6,7 +6,13 @@
     align-items: center;
     height: 100vh;
 }
-
+.register-right img {
+    width: 100px;
+    position: absolute;    
+    top: 0px;
+    right: 50px;
+    height: auto;
+}
 .register-left {
     /* display: flex;
     justify-content: center;
