@@ -17,17 +17,35 @@ const NoticiaIntraCardInfo = () => {
     return (
         <div className='container'>
             <Link to='/noticia-intranet'>
-                <i className='bx bx-left-arrow-alt mt-4'></i>   Regresar
+                <i className='bx bxs-chevron-left-circle' style={{ fontSize: 40, marginTop: 20 }}></i>
             </Link>
-            <h2>{noticia?.titulo}</h2>
 
-            <div className='noticiainfo'>
-                <img src={noticiaImg} alt="" />
-                <div className='noticiainfo__info'>
-                    <h4>{noticia?.titulo}</h4>
-                    <p>{noticia?.nota} </p>
+            <div className='mt-5' style={{ display: 'flex', gap: 10, alignItems: 'center' }}>
+                <div style={{ backgroundColor: '#DC8A4A', width: '60px', height: '20px' }}>
+                </div>
+                <h3 style={{ color: '#DC8A4A' }}>Noticias</h3>
+            </div>
+            <h2 style={{ color: '#DC8A4A', marginLeft: 40 }}>{noticia?.titulo}</h2>
+            <div className='row'>
+                <div className='col-10'>
+
+                </div>
+                <div className='col-2'>
+                    {new Date(noticia?.created_at).toLocaleDateString('en-US', {
+                        month: '2-digit',
+                        day: '2-digit',
+                        year: 'numeric',
+                    })}
                 </div>
             </div>
+            <div className='row'>
+                <div>
+                    <img src={noticiaImg} alt="" style={{ width: '100%', height: '450px', objectFit: 'cover', borderRadius: '20px' }} />
+                </div>
+            </div>
+            <div className='border rounded my-4 mx-md-5 p-4' style={{}}>                
+                    <p>{noticia?.nota} </p>            
+            </div>            
         </div>
     )
 }

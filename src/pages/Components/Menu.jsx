@@ -4,6 +4,8 @@ import SideNav, { Toggle, Nav, NavItem, NavIcon, NavText } from '@trendmicro/rea
 
 import '@trendmicro/react-sidenav/dist/react-sidenav.css';
 import { useNavigate } from 'react-router-dom';
+import { faCar, faCarSide, faVanShuttle } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 const Menu = () => {
     const navigate = useNavigate()
     const [role, setRole] = useState({})
@@ -42,9 +44,9 @@ const Menu = () => {
             <div className="d-md-none">
 
                 <button onClick={handleToggle} className='button_menu'
-                    style={{ color: "#5b2491", border: "none", padding: "7px", borderRadius: "8px", top: "10px", left: "10px" }}
+                    style={{ color: "#262147", border: "none", padding: "7px", borderRadius: "8px", top: "10px", left: "10px" }}
                 >
-                    <i className='bx bx-menu' style={{ color: "#5b2491", fontWeight: "bold", fontSize: "30px" }}></i>
+                    <i className='bx bx-menu' style={{ color: "#262147", fontWeight: "bold", fontSize: "30px" }}></i>
                 </button>
             </div>
 
@@ -54,7 +56,7 @@ const Menu = () => {
 
                     // expanded={true}
                     style={{
-                        backgroundColor: '#5b2491',
+                        backgroundColor: '#262147',
 
                     }}
                 >
@@ -62,11 +64,11 @@ const Menu = () => {
                     <SideNav.Toggle />
 
                     <SideNav.Nav defaultSelected="tourintranet">
-                        <NavItem eventKey="perfil" style={{
-                            textAlign: 'center', marginBottom: '70px'
+                        <NavItem eventKey="home-intranet" style={{
+                            textAlign: 'center', marginBottom: '90px'
                         }}>
 
-                            <i className='bx bxs-user-circle' style={{ fontSize: '4em' }}></i>
+                            <i className='bx bx-user-circle' style={{ fontSize: '5em' }}></i>
                             <p> {role.razon_social}</p>
                         </NavItem>
                         {/*  */}
@@ -79,17 +81,18 @@ const Menu = () => {
                                         borderTopLeftRadius: selectedNavItem === 'admin' ? '20px' : '',
                                         borderBottomLeftRadius: selectedNavItem === 'admin' ? '20px' : '',
                                         backgroundColor: selectedNavItem === 'admin' ? 'white' : '',
+                                        borderTop: '1px solid white', marginTop: 10
                                     }}
                                 >
                                     <NavIcon>
-                                        <i className='bx bxs-user-detail' style={{
+                                        <i className='bx bx-user-circle' style={{
                                             fontSize: '1.75em',
-                                            color: selectedNavItem === 'admin' ? '#5b2491' : '',
+                                            color: selectedNavItem === 'admin' ? '#262147' : '',
                                         }} ></i>
                                     </NavIcon>
                                     <NavText
                                         style={{
-                                            color: selectedNavItem === 'admin' ? '#5b2491' : '',
+                                            color: selectedNavItem === 'admin' ? '#262147' : '',
                                         }}
                                     >
                                         Admin
@@ -150,12 +153,12 @@ const Menu = () => {
                             <NavIcon>
                                 <i className='bx bx-home-alt-2' style={{
                                     fontSize: '1.75em',
-                                    color: selectedNavItem === 'home-intranet' ? '#5b2491' : '',
+                                    color: selectedNavItem === 'home-intranet' ? '#262147' : '',
                                 }}></i>
                             </NavIcon>
 
                             <NavText style={{
-                                color: selectedNavItem === 'home-intranet' ? '#5b2491' : '',
+                                color: selectedNavItem === 'home-intranet' ? '#262147' : '',
                             }}>
                                 Pagina Principal
                             </NavText>
@@ -171,11 +174,11 @@ const Menu = () => {
                             <NavIcon>
                                 <i className='bx bxs-discount' style={{
                                     fontSize: '1.75em',
-                                    color: selectedNavItem === 'promo-intranet' ? '#5b2491' : '',
+                                    color: selectedNavItem === 'promo-intranet' ? '#262147' : '',
                                 }}></i>
                             </NavIcon>
                             <NavText style={{
-                                color: selectedNavItem === 'promo-intranet' ? '#5b2491' : '',
+                                color: selectedNavItem === 'promo-intranet' ? '#262147' : '',
                             }}>
                                 Promociones
                             </NavText>
@@ -190,13 +193,18 @@ const Menu = () => {
                             }}
                         >
                             <NavIcon>
-                                <i className='bx bx-car' style={{
+                                {/* <i className='bx bx-car' style={{
                                     fontSize: '1.75em',
-                                    color: selectedNavItem === 'tour-intranet' ? '#5b2491' : '',
-                                }}></i>
+                                    color: selectedNavItem === 'tour-intranet' ? '#262147' : '',
+                                }}></i> */}
+                                <FontAwesomeIcon icon={faCarSide} style={{
+                                    fontSize: '1.5em',
+                                    color: selectedNavItem === 'tour-intranet' ? '#262147' : '',
+                                }} />
+
                             </NavIcon>
                             <NavText style={{
-                                color: selectedNavItem === 'tour-intranet' ? '#5b2491' : '',
+                                color: selectedNavItem === 'tour-intranet' ? '#262147' : '',
                             }}>
                                 Tours
                             </NavText>
@@ -211,13 +219,17 @@ const Menu = () => {
                             }}
                         >
                             <NavIcon>
-                                <i className='bx bx-bus' style={{
+                                {/* <i className='bx bx-bus' style={{
                                     fontSize: '1.75em',
-                                    color: selectedNavItem === 'circuito-intranet' ? '#5b2491' : '',
-                                }}></i>
+                                    color: selectedNavItem === 'circuito-intranet' ? '#262147' : '',
+                                }}></i> */}
+                                <FontAwesomeIcon icon={faVanShuttle} style={{
+                                    fontSize: '1.5em',
+                                    color: selectedNavItem === 'circuito-intranet' ? '#262147' : '',
+                                }} />
                             </NavIcon>
                             <NavText style={{
-                                color: selectedNavItem === 'circuito-intranet' ? '#5b2491' : '',
+                                color: selectedNavItem === 'circuito-intranet' ? '#262147' : '',
                             }}>
                                 Circuitos
                             </NavText>
@@ -234,12 +246,12 @@ const Menu = () => {
                             <NavIcon>
                                 <i className='bx bx-wallet' style={{
                                     fontSize: '1.75em',
-                                    color: selectedNavItem === 'tarifa-intranet' ? '#5b2491' : '',
+                                    color: selectedNavItem === 'tarifa-intranet' ? '#262147' : '',
                                 }}></i>
 
                             </NavIcon>
                             <NavText style={{
-                                color: selectedNavItem === 'tarifa-intranet' ? '#5b2491' : '',
+                                color: selectedNavItem === 'tarifa-intranet' ? '#262147' : '',
                             }}>
                                 Tarifas
                             </NavText>
@@ -254,13 +266,13 @@ const Menu = () => {
                             }}
                         >
                             <NavIcon>
-                                <i className='bx bx-news' style={{
+                                <i className='bx bxs-news' style={{
                                     fontSize: '1.75em',
-                                    color: selectedNavItem === 'noticia-intranet' ? '#5b2491' : '',
+                                    color: selectedNavItem === 'noticia-intranet' ? '#262147' : '',
                                 }}></i>
                             </NavIcon>
                             <NavText style={{
-                                color: selectedNavItem === 'noticia-intranet' ? '#5b2491' : '',
+                                color: selectedNavItem === 'noticia-intranet' ? '#262147' : '',
                             }}>
                                 Noticias
                             </NavText>
@@ -278,11 +290,11 @@ const Menu = () => {
                             <NavIcon>
                                 <i className='bx bx-chat' style={{
                                     fontSize: '1.75em',
-                                    color: selectedNavItem === 'contacto-intranet' ? '#5b2491' : '',
+                                    color: selectedNavItem === 'contacto-intranet' ? '#262147' : '',
                                 }}></i>
                             </NavIcon>
                             <NavText style={{
-                                color: selectedNavItem === 'contacto-intranet' ? '#5b2491' : '',
+                                color: selectedNavItem === 'contacto-intranet' ? '#262147' : '',
                             }}>
                                 Contactenos
                             </NavText>
@@ -311,7 +323,7 @@ const Menu = () => {
                     }}
                     expanded={true}
                     style={{
-                        backgroundColor: '#5b2491',
+                        backgroundColor: '#262147',
 
                     }}
                 >
@@ -412,7 +424,8 @@ const Menu = () => {
                         </NavItem>
                         <NavItem eventKey="circuito-intranet" onClick={handleToggle}>
                             <NavIcon>
-                                <i className='bx bx-bus' style={{ fontSize: '1.75em' }}></i>
+                                {/* <i className='bx bx-bus' style={{ fontSize: '1.75em' }}></i> */}
+                                <FontAwesomeIcon icon={faVanShuttle} />
                             </NavIcon>
                             <NavText>
                                 Circuitos

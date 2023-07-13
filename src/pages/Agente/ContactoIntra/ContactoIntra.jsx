@@ -4,7 +4,10 @@ import { useForm } from 'react-hook-form'
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 const MySwal = withReactContent(Swal)
+import portada from './../../../assets/carril/contacto_intra.png'
+import logoExplora from './../../../assets/logo/logo.png'
 const URL = 'https://backend.peruexploring.pe/public/api/v1/contactenos'
+import './contacto.css'
 const ContactoIntra = () => {
   const { handleSubmit, register, reset, watch } = useForm()
   const defaultValuesForm = {
@@ -47,46 +50,70 @@ const ContactoIntra = () => {
   }
   return (
 
-    <div className='container'>
-      <h2>Contáctanos</h2>
-      <p>¿Estas interesado en nuestros servicios? Escribenos</p>
-      <form onSubmit={handleSubmit(submit)} className='reclamacion'>
-        <div className="row">
-          <div className="col-4">
-            <label htmlFor="nombre">Nombre: </label>
-            <input type="text" className="form-control" id='nombre'
-              {...register('nombre')} required />
-          </div>
+    <>
 
-
+      <div className='row'>
+        <div className='col-md-6 col-sm-12'>
+          <img className='cover-image' src={portada} alt="" />
         </div>
-        <div className="row">
-          <div className="col-8">
-            <label htmlFor="email">Email:</label>
-            <input type="email" className="form-control" id='email'
-              {...register('email')} required />
+        <div className='col-md-6 col-sm-12 my-4 p-5'>
+          <div className='row'>
+            <div className='col-md-10 col-sm-8'></div>
+            <div className='col-md-2 col-sm-4'>
+              <img src={logoExplora} alt="" style={{ width: '100px', height: '50px', objectFit: 'cover', borderRadius: '10px' }} />
+            </div>
           </div>
-          <div className="col-4">
-            <label htmlFor="celular">Celular:</label>
-            <input type="text" className="form-control"
-              {...register('celular')} />
-          </div>
+          <form onSubmit={handleSubmit(submit)}>
+            <h2>Contáctanos</h2>
+            <p>¿Estas interesado en nuestros servicios? Escribenos</p>
+            <div className='row'>
+              <div className='col-md-2'>
+                <label htmlFor="nombre">Nombre: </label>
+              </div>
+              <div className='col-md-10'>
+                <input type="text" className="form-control" id='nombre'
+                  {...register('nombre')} required />
+              </div>
+            </div>
 
+            <div className='row my-4'>
+              <div className='col-md-2'>
+                <label htmlFor="email">Email: </label>
+              </div>
+              <div className='col-md-10'>
+                <input type="text" className="form-control" id='email'
+                  {...register('email')} required />
+              </div>
+            </div>
+
+            <div className='row my-4'>
+              <div className='col-md-2'>
+                <label htmlFor="celular">Celular: </label>
+              </div>
+              <div className='col-md-10'>
+                <input type="text" className="form-control" id='celular'
+                  {...register('celular')} required />
+              </div>
+            </div>
+
+            <div className='row my-4'>
+              <div className='col-md-2'>
+                <label htmlFor="mensaje">Mensaje: </label>
+              </div>
+              <div className='col-md-10'>
+                <textarea className="form-control" id='mensaje' rows={6} {...register('mensaje')} required />
+
+              </div>
+            </div>
+            <div className='row my-4 mx-5'>
+              <button className='btn' style={{ color: 'white', backgroundColor: '#DC8A4A', borderRadius: 15 }}>
+                Enviar
+              </button>
+            </div>
+          </form>
         </div>
-        <div className="row">
-          <div className="col-12">
-            <label htmlFor="mensaje">Mensaje:</label>
-            <textarea type="text" className="form-control" id='mensaje'
-              {...register('mensaje')} required >
-            </textarea>
-          </div>
-        </div>
-        <button className='btn btn-primary my-4' style={{ backgroundColor: '#5B2491', borderColor: '#5B2491' }}>Enviar</button>
-      </form>
-
-
-
-    </div>
+      </div >
+    </>
   )
 }
 

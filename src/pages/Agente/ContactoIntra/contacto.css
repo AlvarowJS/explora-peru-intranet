@@ -1,0 +1,12 @@
+.cover-image {
+    width: 100%;
+    height: 100vh; /* Ocupa el alto completo de la ventana */
+    object-fit: cover; /* Ajusta la imagen al tamaño del contenedor */
+  }
+  
+  @media (max-width: 600px) {
+    .cover-image {
+      display: none; /* Oculta la imagen en dispositivos móviles */
+    }
+  }
+  

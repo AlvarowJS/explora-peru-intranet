@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import './CircuitoInfo.css'
 import circuitosBD from '../../../apis/circuitos';
+import logoExplora from './../../../assets/logo/logo.png'
 const CircuitoIntraCardInfo = () => {
 
     const id = useParams();
@@ -25,42 +26,32 @@ const CircuitoIntraCardInfo = () => {
     }
     return (
         <div className='container'>
-            <Link to='/circuito-intranet'>
-                <i className='bx bx-left-arrow-alt mt-4'></i>   Regresar
-            </Link>
-            <h2>{circuito?.titulo}</h2>
+            <div className='d-flex justify-content-between align-items-center' >
+                <Link to='/circuito-intranet'>
+                    <i className='bx bxs-chevron-left-circle' style={{ fontSize: 40, marginTop: 20 }}></i>
+                </Link>
+                <img src={logoExplora} alt="" style={{ width: '100px', height: '50px', objectFit: 'cover', marginTop: 10 }} />
+            </div>
 
-            <div className='circuitoinfo'>
-                <div className='circuitoinfo__img'>
-                    <img src={circuitoImg} alt="" />
-                    <button
-                        className='btn btn-success'
-                        style={{ backgroundColor: '#5B2491', borderColor: '#5B2491' }}
-                        onClick={descargarItinerarioEspaniol}
-                    >
-                        Descargar Itinerario en Español
-                    </button>
-                    <button
-                        className='btn btn-success'
-                        style={{ backgroundColor: '#5B2491', borderColor: '#5B2491' }}
-                        onClick={descargarItinerarioEnglish}
-                    >
-                        Download Itinerary in English
-                    </button>
+            <h2 style={{ color: '#DC8A4A' }}>{circuito?.titulo}</h2>
+
+            <div className='row'>
+                <div className='col-md-6 col-sm-12'>
+                    <img src={circuitoImg} alt="" style={{ width: '100%', objectFit: 'cover' }} />
                 </div>
-                <div className='circuitoinfo__info'>
-                    <h4>{circuito?.titulo}</h4>
-                    {/* <p>{circuito?.descripcion_spanish} </p> */}
-                    {
-                        circuito?.dias?.map(dia => (
-                            <>
-                                <h4>- {dia?.nombre} / {dia?.horario}</h4>
-                                <p> {dia?.descripcion}</p>
-                            </>
-                        ))
-                    }
-                    <div className='circuitoinfo__datos'>
-                        <h4>Incluye</h4>
+                <div className='col-md-6 col-sm-12'>
+                    <div className='border rounded p-4'>
+                        <h4 style={{ color: '#DC8A4A' }}>{circuito?.titulo}</h4>
+                        {
+                            circuito?.dias?.map(dia => (
+                                <>
+                                    <h4>- {dia?.nombre} / {dia?.horario}</h4>
+                                    <p> {dia?.descripcion}</p>
+                                </>
+                            ))
+                        }
+
+                        <h4 style={{ color: '#DC8A4A' }}>Incluye</h4>
                         {
                             circuito?.incluye_spanish.split('\n').map((item, index) => (
                                 <div key={index}>
@@ -69,8 +60,7 @@ const CircuitoIntraCardInfo = () => {
                                 </div>
                             ))
                         }
-                        {/* <p>{circuito?.incluye_spanish}</p> */}
-                        <h4>No incluye</h4>
+                        <h4 style={{ color: '#DC8A4A' }}>No incluye</h4>
                         {
                             circuito?.no_incluye_spanish.split('\n').map((item, index) => (
                                 <div key={index}>
@@ -79,6 +69,24 @@ const CircuitoIntraCardInfo = () => {
                                 </div>
                             ))
                         }
+                    </div>
+                    <div className='d-flex gap-4'>
+                        <button
+                            className='btn btn-success'
+                            style={{ backgroundColor: '#5B2491', borderColor: '#5B2491' }}
+                            onClick={descargarItinerarioEspaniol}
+                        >
+                            <i className='bx bxs-download'></i>
+                            Descargar Itinerario en Español
+                        </button>
+                        <button
+                            className='btn btn-success'
+                            style={{ backgroundColor: '#5B2491', borderColor: '#5B2491' }}
+                            onClick={descargarItinerarioEnglish}
+                        >
+                            <i className='bx bxs-download'></i>
+                            Download Itinerary in English
+                        </button>
                     </div>
                 </div>
 

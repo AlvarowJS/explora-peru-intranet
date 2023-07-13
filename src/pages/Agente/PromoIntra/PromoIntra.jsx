@@ -3,6 +3,7 @@ import './../style.css'
 import PromoIntraCard from './PromoIntraCard'
 import promosBD from '../../../apis/promos'
 import lugaresBD from '../../../apis/lugares'
+import logoExplora from './../../../assets/logo/logo.png'
 const PromoIntra = () => {
   const [filterSelect, setFilterSelect] = useState()
   const [promos, setPromos] = useState()
@@ -41,38 +42,29 @@ const PromoIntra = () => {
   }
   return (
     <div className='container'>
-      <div className='tours__filters'>
-        <div className='tours__filters--buscador'>
-          <input type="text" onChange={() => buscarTour()} /><i className='bx bx-search-alt-2'></i>
+      <div className='d-flex justify-content-between align-items-center' >
+        <div className='mt-5' style={{ display: 'flex', gap: 10, alignItems: 'center' }}>
+          <div style={{ backgroundColor: '#DC8A4A', width: '20px', height: '20px' }}>
+          </div>
+          <h3 style={{ color: '#DC8A4A' }}>Nuestras promociones </h3>
         </div>
-        <div className='tours__filters--select'>
-          <span>Buscar información en </span>
-          <select onChange={handleSelectChange}>
-            {
-              lugars && lugars.map(lugar => (
-                <option value={lugar?.nombre}>{lugar?.nombre}</option>
-              ))
-            }
-          </select>
-        </div>
+        <img src={logoExplora} alt="" style={{ width: '100px', height: '50px', objectFit: 'cover', marginTop: 10 }} />
       </div>
-      <h2 style={{ color: '#5B2491' }}>Revisa nuestro itinerario de Tours con Promociones! </h2>
-      {
-        filter ?
-          filter?.map(promo => (
-            <PromoIntraCard
-              key={promo.id}
-              promo={promo}
-            />
-          ))
-          :
+      <div className='row my-4'>
+        {
+
           promos?.map(promo => (
-            <PromoIntraCard
-              key={promo.id}
-              promo={promo}
-            />
+            <>
+              <PromoIntraCard
+                key={promo.id}
+                promo={promo}
+              />
+            </>
           ))
-      }
+
+        }
+      </div>
+
     </div>
   )
 }

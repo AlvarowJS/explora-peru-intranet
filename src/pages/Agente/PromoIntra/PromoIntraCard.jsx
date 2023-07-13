@@ -1,6 +1,7 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import './Promo.css'
+import logoExplora from './../../../assets/logo/logo.png'
 const PromoIntraCard = ({ promo }) => {
     const navigate = useNavigate()
     let img = promo.img
@@ -8,22 +9,27 @@ const PromoIntraCard = ({ promo }) => {
     const verTour = (id) => {
         navigate(`/promo-intranet/${id}`)
     }
+    const descargarItinerarioEnglish = () => {
+        window.open(`https://backend.peruexploring.pe/public/storage/promos/${promo.titulo}/${promo.archivo_english}`, '_blank')
+    }
     return (
         <>
-            <div className='promointra__card' onClick={() => verTour(promo.id)}>
-                <div className='promointra__card-img'>
-                    <img src={img} alt="" />
-                </div>
-                <div className='promointra__card-desc'>
-                    <h2>{promo.titulo}</h2>
-                    <p>{(promo.descripcion_spanish).substring(0, 100) + "..."}</p>
-                    <div>
-                        <p>{promo.duracion} Horas</p>
+            <div className='col-md-4 my-2'>
+                <img src={img} alt="" style={{ width: '100%', height: '700px', objectFit: 'cover', borderRadius: '10px' }} />
 
-                    </div>
+                <div style={{textAlign: 'center', marginTop: 20, marginBottom:20}}>
+                    <button
+                        className='btn btn-success'
+                        style={{ backgroundColor: '#5B2491', borderColor: '#5B2491' }}
+                        onClick={descargarItinerarioEnglish}
+                    >
+                        <i className='bx bxs-download' ></i>
+                    </button>
+                    Descargar Itinerario
                 </div>
-               
             </div>
+
+
         </>
     )
 }

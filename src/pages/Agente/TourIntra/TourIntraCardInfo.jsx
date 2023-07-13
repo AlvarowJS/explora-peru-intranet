@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import toursBD from '../../../apis/tours';
+import logoExplora from './../../../assets/logo/logo.png'
 import './TourInfo.css'
 const TourIntraCardInfo = () => {
 
@@ -24,22 +25,31 @@ const TourIntraCardInfo = () => {
     }
     return (
         <div className='container'>
-            <Link to='/tour-intranet'>
-                <i className='bx bxs-chevron-left-circle' style={{fontSize: 40, marginTop: 20}}></i>
-            </Link>
-            <h2 style={{color: '#DC8A4A'}}>{tour?.titulo}</h2>
+            <div className='d-flex justify-content-between align-items-center' >
+                <Link to='/tour-intranet'>
+                    <i className='bx bxs-chevron-left-circle' style={{ fontSize: 40, marginTop: 20 }}></i>
+                </Link>
+                <img src={logoExplora} alt="" style={{ width: '100px', height: '50px', objectFit: 'cover', marginTop: 10 }} />
+            </div>
 
-            <div className='tourinfo'>
-                <img src={tourImg} alt="" />
-                <div className='tourinfo__info'>
-                    <h4>{tour?.titulo}</h4>
-                    <p>{tour?.descripcion_spanish} </p>
+            <h2 style={{ color: '#DC8A4A' }}>{tour?.titulo}</h2>
+
+            <div className='row'>
+                <div className='col-md-6 col-sm-12'>
+                    <img src={tourImg} alt="" style={{ width: '100%', objectFit: 'cover' }} />
+                </div>
+                <div className='col-md-6 col-sm-12 '>
+                    <div className='border rounded mb-4 p-4'>
+                        <h4>{tour?.titulo}</h4>
+                        <p>{tour?.descripcion_spanish} </p>
+                    </div>
                     <div className='tour__info-button'>
                         <button
                             className='btn btn-success'
                             style={{ backgroundColor: '#5B2491', borderColor: '#5B2491' }}
                             onClick={descargarItinerarioEspaniol}
                         >
+                            <i className='bx bxs-download'></i>
                             Descargar Itinerario en Español
                         </button>
                         <button
@@ -47,6 +57,7 @@ const TourIntraCardInfo = () => {
                             style={{ backgroundColor: '#5B2491', borderColor: '#5B2491' }}
                             onClick={descargarItinerarioEnglish}
                         >
+                            <i className='bx bxs-download'></i>
                             Download Itinerary in English
                         </button>
                     </div>

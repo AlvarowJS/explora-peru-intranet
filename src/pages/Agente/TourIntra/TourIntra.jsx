@@ -4,6 +4,7 @@ import './TourFiltros.css'
 import TourIntraCard from './TourIntraCard'
 import toursBD from '../../../apis/tours'
 import lugaresBD from '../../../apis/lugares'
+import logoExplora from './../../../assets/logo/logo.png'
 const TourIntra = () => {
   const [filterSelect, setFilterSelect] = useState()
   const [tours, setTours] = useState()
@@ -44,13 +45,14 @@ const TourIntra = () => {
 
   return (
     <div className='container'>
-
-      <div className='mt-5' style={{ display: 'flex', gap: 10, alignItems: 'center' }}>
-        <div style={{ backgroundColor: '#DC8A4A', width: '20px', height: '20px' }}>
+      <div className='d-flex justify-content-between align-items-center' >
+        <div className='mt-5' style={{ display: 'flex', gap: 10, alignItems: 'center' }}>
+          <div style={{ backgroundColor: '#DC8A4A', width: '20px', height: '20px' }}>
+          </div>
+          <h3 style={{ color: '#DC8A4A' }}>Revisa nuestro itinerario de Tours </h3>
         </div>
-        <h3 style={{ color: '#DC8A4A' }}>Revisa nuestro itinerario de Tours </h3>
+        <img src={logoExplora} alt="" style={{ width: '100px', height: '50px', objectFit: 'cover', marginTop: 10 }} />
       </div>
-
       <div className="row">
         <div className='col-md-6 col-sm-4'>
 
@@ -77,7 +79,7 @@ const TourIntra = () => {
             />
           ))
       }
-    </div>
+    </div >
   )
 }
 
